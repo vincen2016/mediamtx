@@ -1,5 +1,6 @@
 name: Build Win32
-on: workflow_dispatch
+"on":
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -7,11 +8,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.23' # 若目标机器是 Win7 32位，可改为 '1.20'
+          go-version: "1.23"
       - run: CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o mediamtx.exe .
       - uses: actions/upload-artifact@v4
         with:
           name: mediamtx-win32
-          path: |
-            mediamtx.exe
-            mediamtx.yml
+          path: mediamtx.exe
